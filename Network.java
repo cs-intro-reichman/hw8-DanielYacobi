@@ -32,7 +32,7 @@ public class Network {
      *  Notice that the method receives a String, and returns a User object. */
     public User getUser(String name) {
         for (int i = 0; i < userCount; i++) {
-            if (users[i].getName().toLowerCase().equals(name.toLowerCase()))
+            if (users[i].getName().toLowerCase().equals(name.toLowerCase())) //safe way to compare between Strings
                 return users[i];
         }
         return null;
@@ -55,13 +55,13 @@ public class Network {
      *  If any of the two names is not a user in this network,
      *  or if the "follows" addition failed for some reason, returns false. */
     public boolean addFollowee(String name1, String name2) {
-        if (name1 == null || name2 == null) {
+        if (name1 == null || name2 == null) { //we dont want to add null as a follower/followee
             return false;
         }
-        if (getUser(name1) == null || getUser(name2) == null) {
+        if (getUser(name1) == null || getUser(name2) == null) { //checks if a user with that name exists
             return false;
         }
-        if (name1.toLowerCase().equals(name2.toLowerCase())) {
+        if (name1.toLowerCase().equals(name2.toLowerCase())) { //one cannot follow himself
             return false;
         }
         return getUser(name1).addFollowee(name2);
@@ -73,7 +73,7 @@ public class Network {
         User mostRecommendedUserToFollow = null;
         int maxMutuals = 0;
         for (int i = 0; i < userCount; i++) {
-            if (users[i].getName().toLowerCase().equals(name.toLowerCase())) {
+            if (users[i].getName().toLowerCase().equals(name.toLowerCase())) { //as asked in guidelines
                 continue;
             }
             if (maxMutuals < getUser(name).countMutual(users[i])) {
@@ -93,7 +93,7 @@ public class Network {
         String mostPopular = null;
         int maxFollowers = 0;
         for (int i = 0; i < userCount; i++) {
-            if (followeeCount(users[i].getName()) > maxFollowers) {
+            if (followeeCount(users[i].getName()) > maxFollowers) { //uses helper function
                 mostPopular = users[i].getName();
                 maxFollowers = followeeCount(users[i].getName());
             }
@@ -118,9 +118,12 @@ public class Network {
 
     // Returns a textual description of all the users in this network, and who they follow.
     public String toString() {
+        if (userCount == 0) { //matching tester output
+            return "Network:";
+        }
         String ans = "Network:\n";
         for (int i = 0; i < userCount; i++) {
-            if (i != userCount - 1) {
+            if (i != userCount - 1) { //matching tester output 
                 ans = ans + users[i].toString() + "\n";
             }
             else {

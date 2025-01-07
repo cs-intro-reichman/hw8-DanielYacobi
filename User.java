@@ -44,7 +44,7 @@
     /** If this user follows the given name, returns true; otherwise returns false. */
     public boolean follows(String name) {
         for (int i = 0; i < fCount; i++) {
-            if (follows[i].toLowerCase().equals(name.toLowerCase())) {
+            if (follows[i].toLowerCase().equals(name.toLowerCase())) { //safe way to compare between Strings
                 return true;
             }
         }
@@ -67,7 +67,7 @@
         for (int i = 0; i < fCount; i++) {
             if (follows[i].equals(name)) {
                 this.fCount --;
-                for (int j = i; j < fCount; j++) {
+                for (int j = i; j < fCount; j++) { //"close the gap"
                     this.follows[j] = follows[j + 1];
                 }
                 return true;
