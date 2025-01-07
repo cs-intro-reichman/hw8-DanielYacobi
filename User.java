@@ -44,7 +44,7 @@
     /** If this user follows the given name, returns true; otherwise returns false. */
     public boolean follows(String name) {
         for (int i = 0; i < fCount; i++) {
-            if (follows[i] != null && follows[i].equals(name)) {
+            if (follows[i].toLowerCase().equals(name)) {
                 return true;
             }
         }
@@ -91,7 +91,7 @@
     /** Checks is this user is a friend of the other user.
      *  (if two users follow each other, they are said to be "friends.") */
     public boolean isFriendOf(User other) {
-        return (follows(other.getName()) && other.follows(this.getName()));
+        return (follows(other.getName()) && other.follows(name));
     }
     
     /** Returns this user's name, and the names that s/he follows. */
